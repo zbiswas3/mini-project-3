@@ -20,7 +20,9 @@
             indexLabelFontSize: 16,
         dataPoints: points
       }]
-    });   
+    }); 
+
+    chart.render();  
   }
   
 // helper function to process fhir resource to get the patient name.
@@ -191,8 +193,8 @@ FHIR.oauth2.ready().then(function(client) {
       p.hdl = getQuantityValueAndUnit(hdl[0]);
       p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-      displayObservation(p)
       weightChart(weight)
+      displayObservation(p)
     });
 
 
