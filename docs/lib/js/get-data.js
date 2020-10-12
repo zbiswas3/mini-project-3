@@ -47,7 +47,12 @@ function riskCalc(pt){
   } else ldlc = 'undefined';
   console.log("ldlc" + ldlc);
 
-
+  var glucose;
+  console.log(String(pt.height))
+  if (typeof pt.height != 'undefined'){
+    glucose = String(pt.height).match(/\d+[\W]\d*/g)[0];
+  } else glucose = 'undefined';
+  console.log("glucose" + glucose);
 
   var sys = pt.sys.match(/\d+[\W]\d*/g)[0];
   var dia = pt.dia.match(/\d+[\W]\d*/g)[0];
@@ -80,15 +85,42 @@ function riskCalc(pt){
 
   console.log("hdlc " + hdlc)
 
-  if (ldlc < 130){
-    cholesterol = 0.49744
+  if (ldlc < 70){
+    cholesterol = 0.0 - 0.6945
+  } else if (ldlc <= 100){
+    cholesterol = 0.0;
+  } else if (ldlc <= 130){
+    cholesterol = 0.17692;
   } else if (ldlc <= 160){
-    cholesterol = 0.24310;
+    cholesterol = 0.50539;
   }  else if (ldlc > 160) {
-    cholesterol =  0.0-0.48660;
+    cholesterol =  0.65713;
   } else { cholesterol = 0.0;}
 
   console.log("cholesterol " + cholesterol)
+
+  var bp;
+
+  if (sys < 120 && dia < 80){
+    bp = 0.0 - 0.00226
+  } else if (sys < 130 && dia < 85){
+    bp = 0.0;
+  } else if (sys < 140 && dia < 90){
+    bp = 0.28320;
+  } else if (sys < 160 && dia < 100){
+    bp = 0.52168;
+  }  else if (sys >= 160 && dia >= 100) {
+    bp =  0.61859;
+  } else { bp = 0.0;}
+
+  console.log("BP " + bp)
+
+  var diabetes; 
+  if (glucose > 140){
+    diabetes = 0.42839;
+  } else { diabetes = 0.0;}
+
+  console.log("diabetes " + diabetes)
 
 }
   
