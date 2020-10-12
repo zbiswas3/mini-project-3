@@ -11,7 +11,8 @@
         });
     var chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
-      theme: "light2",
+      theme: "dark",
+      lineColor: 'blue',
       title:{
         text: "weight Over Time"
       },
