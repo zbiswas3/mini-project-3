@@ -215,6 +215,7 @@ FHIR.oauth2.ready().then(function(client) {
     'http://loinc.org|3141-9',
     'http://loinc.org|29463-7',
     'http://loinc.org|2339-0',
+    'http://loinc.org|18262-6',
   ].join(","));
 
   var weightObservation;
@@ -236,7 +237,8 @@ FHIR.oauth2.ready().then(function(client) {
       systolicbp = getBloodPressureValue(byCodes('55284-4'), '8480-6');
       diastolicbp = getBloodPressureValue(byCodes('55284-4'), '8462-4');
       hdl = byCodes('2085-9');
-      ldl = byCodes('2089-1');
+      // ldl = byCodes('2089-1');
+      ldl = byCodes('18262-6');
       height = byCodes('2339-0');
       weight = byCodes('29463-7');
       weightObservation = weight[0]
