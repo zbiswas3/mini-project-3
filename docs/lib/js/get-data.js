@@ -35,7 +35,7 @@ function riskCalc(pt){
   if (typeof pt.hdl != 'undefined'){
     console.log(typeof pt.hdl + "  //  "+ pt.hdl)
     hdlc = String(pt.hdl).match(/\d+[\W]\d*/g)[0];
-  } else hdlc = 'undefined';
+  } else hdlc = 0.0;
 
   console.log("hdlc" + hdlc);
 
@@ -44,7 +44,7 @@ function riskCalc(pt){
   console.log(String(pt.ldl))
   if (typeof pt.ldl != 'undefined'){
     ldlc = String(pt.ldl).match(/\d+[\W]\d*/g)[0];
-  } else ldlc = 'undefined';
+  } else ldlc = 0.0;
   console.log("ldlc" + ldlc);
 
 
