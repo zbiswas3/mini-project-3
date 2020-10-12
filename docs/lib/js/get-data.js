@@ -28,18 +28,27 @@ function weightChart(weight) {
   chart.render();  
 }
 
+
+// calculate the risk of CHD in a patient 
 function riskCalc(pt){
   var gChol;
-  // var cholesterol;
+  var cholesterol;
   var hdlc;
   if (pt.hdl != 'undefined'){
-    pt.hdl.match(/\d+[\W]\d*/g);
-  } else undefined;
+    hdlc = pt.hdl.match(/\d+[\W]\d*/g);
+  } else hdlc = 'undefined';
 
   console.log("hdlc" + hdlc);
 
 
-  // var ldl;
+  var ldlc;
+  if (pt.ldl != 'undefined'){
+    ldlc = pt.ldl.match(/\d+[\W]\d*/g);
+  } else ldlc = 'undefined';
+  console.log("ldlc" + ldlc);
+
+  
+
   var sys = systolicbp.match(/\d+[\W]\d*/g);
   var dia = diastolicbp.match(/\d+[\W]\d*/g);
 
@@ -67,9 +76,11 @@ function riskCalc(pt){
     hdlc = −0.05107;
   }  else if (hdlc > 59) {
     hdlc = −0.48660;
-  } else { hdlc = 0.0}
+  } else { hdlc = 0.0;}
 
   console.log("hdlc" + hdlc)
+
+
 
 }
   
@@ -198,7 +209,7 @@ FHIR.oauth2.ready().then(function(client) {
     'http://loinc.org|55284-4',
     'http://loinc.org|3141-9',
     'http://loinc.org|29463-7',
-    'http://loinc.org|8302-2',
+    'http://loinc.org|1558-6',
   ].join(","));
 
   var weightObservation;
