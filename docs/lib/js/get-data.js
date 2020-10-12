@@ -35,7 +35,7 @@ function riskCalc(pt){
   if (typeof pt.hdl != 'undefined'){
     console.log(typeof pt.hdl + "  //  "+ pt.hdl)
     hdlc = String(pt.hdl).match(/\d+[\W]\d*/g)[0];
-  } else hdlc = 0.0;
+  } else hdlc = 'undefined';
 
   console.log("hdlc" + hdlc);
 
@@ -44,7 +44,7 @@ function riskCalc(pt){
   console.log(String(pt.ldl))
   if (typeof pt.ldl != 'undefined'){
     ldlc = String(pt.ldl).match(/\d+[\W]\d*/g)[0];
-  } else ldlc = 0.0;
+  } else ldlc = 'undefined';
   console.log("ldlc" + ldlc);
 
 
@@ -79,6 +79,16 @@ function riskCalc(pt){
   } else { hdlc = 0.0;}
 
   console.log("hdlc " + hdlc)
+
+  if (ldlc < 130){
+    cholesterol = 0.49744
+  } else if (ldlc <= 160){
+    cholesterol = 0.24310;
+  }  else if (ldlc > 160) {
+    cholesterol =  0.0-0.48660;
+  } else { cholesterol = 0.0;}
+
+  console.log("cholesterol " + cholesterol)
 
 }
   
@@ -171,7 +181,7 @@ function displayObservation(obs) {
   sys.innerHTML = obs.sys;
   dia.innerHTML = obs.dia;
   weight.innerHTML = obs.weight;
-  height.innerHTML = obs.glucose;
+  height.innerHTML = obs.height;
 }
 
 var birthDate;
@@ -204,7 +214,7 @@ FHIR.oauth2.ready().then(function(client) {
     'http://loinc.org|55284-4',
     'http://loinc.org|3141-9',
     'http://loinc.org|29463-7',
-    'http://loinc.org|1558-6',
+    'http://loinc.org|2339-0',
   ].join(","));
 
   var weightObservation;
@@ -227,7 +237,7 @@ FHIR.oauth2.ready().then(function(client) {
       diastolicbp = getBloodPressureValue(byCodes('55284-4'), '8462-4');
       hdl = byCodes('2085-9');
       ldl = byCodes('2089-1');
-      glucose = byCodes('1558-6');
+      glucose = byCodes('2339-0');
       weight = byCodes('29463-7');
       weightObservation = weight[0]
 
