@@ -11,7 +11,7 @@
         });
     var chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
-      theme: "dark2",
+      theme: "dark1",
       lineColor: 'white',
       markerColor: 'green',
       markerType : 'square',
