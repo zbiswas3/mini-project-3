@@ -33,7 +33,8 @@ function riskCalc(pt){
   var cholesterol;
   var hdlc;
   if (pt.hdl != 'undefined'){
-    hdlc = pt.hdl.match(/\d+[\W]\d*/g);
+    console.log(typeof pt.hdl + "  //  "+ pt.hdl)
+    hdlc = String(pt.hdl).match(/\d+[\W]\d*/g)[0];
   } else hdlc = 'undefined';
 
   console.log("hdlc" + hdlc);
@@ -47,8 +48,8 @@ function riskCalc(pt){
 
 
 
-  var sys = systolicbp.match(/\d+[\W]\d*/g);
-  var dia = diastolicbp.match(/\d+[\W]\d*/g);
+  var sys = systolicbp.match(/\d+[\W]\d*/g)[0];
+  var dia = diastolicbp.match(/\d+[\W]\d*/g)[0];
 
   if (gender == "female"){
     gChol =  9.92545;
@@ -171,7 +172,7 @@ function displayObservation(obs) {
   sys.innerHTML = obs.sys;
   dia.innerHTML = obs.dia;
   weight.innerHTML = obs.weight;
-  height.innerHTML = obs.height;
+  height.innerHTML = obs.glucose;
 }
 
 var birthDate;
@@ -212,7 +213,7 @@ FHIR.oauth2.ready().then(function(client) {
   var diastolicbp;
   var hdl;
   var ldl;
-  var height;
+  var glucose;
   var weight;
 
   client.request("Observation?" + query, {
@@ -227,7 +228,7 @@ FHIR.oauth2.ready().then(function(client) {
       diastolicbp = getBloodPressureValue(byCodes('55284-4'), '8462-4');
       hdl = byCodes('2085-9');
       ldl = byCodes('2089-1');
-      height = byCodes('8302-2');
+      glucose = byCodes('1558-6');
       weight = byCodes('29463-7');
       weightObservation = weight[0]
 
@@ -247,7 +248,7 @@ FHIR.oauth2.ready().then(function(client) {
         p.dia = 'undefined'
       }
       
-      p.height = getQuantityValueAndUnit(height[0])
+      p.height = getQuantityValueAndUnit(glucose[0])
       p.weight = getQuantityValueAndUnit(weight[0]) 
       p.hdl = getQuantityValueAndUnit(hdl[0]);
       p.ldl = getQuantityValueAndUnit(ldl[0]);
