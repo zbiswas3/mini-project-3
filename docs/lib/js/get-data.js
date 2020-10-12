@@ -42,7 +42,7 @@ function riskCalc(pt){
 
   var ldlc;
   if (pt.ldl != 'undefined'){
-    ldlc = pt.ldl.match(/\d+[\W]\d*/g);
+    ldlc = String(pt.ldl).match(/\d+[\W]\d*/g)[0];
   } else ldlc = 'undefined';
   console.log("ldlc" + ldlc);
 
@@ -63,7 +63,7 @@ function riskCalc(pt){
   var now = new Date();
   var age = (now - dob) / 31556952000;
 
-  console.log(age);
+  console.log("age  "+ age);
 
   if (hdlc < 35){
     hdlc = 0.49744
@@ -77,9 +77,7 @@ function riskCalc(pt){
     hdlc =  0.0-0.48660;
   } else { hdlc = 0.0;}
 
-  console.log("hdlc" + hdlc)
-
-
+  console.log("hdlc " + hdlc)
 
 }
   
