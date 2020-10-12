@@ -1,62 +1,77 @@
 //adapted from the cerner smart on fhir guide. updated to utalize client.js v2 library and FHIR R4
-  //update function to take in text input from the app and add the note for the latest weight observation annotation
-  //you should include text and the author can be set to anything of your choice. keep in mind that this data will
-  // be posted to a public sandbox
-  function weightChart(weight) {
-      var points = [];
-      weight.forEach(w => {
-        var date = new Date(w.effectiveDateTime);
-        var num = Number(parseFloat((w.valueQuantity.value)).toFixed(2))
-        points.push({x: date, y: num})
-        });
-    var chart = new CanvasJS.Chart("chartContainer", {
-      animationEnabled: true,
-      theme: "dark1",
-      title:{
-        text: "Weight Over Time"
-      },
-      data: [{        
-        type: "line",
-            indexLabelFontSize: 16,
-        dataPoints: points
-      }]
-    }); 
 
-    chart.render();  
+const birthDate;
+const gender;
+//update function to take in text input from the app and add the note for the latest weight observation annotation
+//you should include text and the author can be set to anything of your choice. keep in mind that this data will
+// be posted to a public sandbox
+function weightChart(weight) {
+    var points = [];
+    weight.forEach(w => {
+      var date = new Date(w.effectiveDateTime);
+      var num = Number(parseFloat((w.valueQuantity.value)).toFixed(2))
+      points.push({x: date, y: num})
+      });
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    theme: "dark1",
+    title:{
+      text: "Weight Over Time"
+    },
+    data: [{        
+      type: "line",
+          indexLabelFontSize: 16,
+      dataPoints: points
+    }]
+  }); 
+
+  chart.render();  
+}
+
+function riskCalc(pt){
+  var gChol;
+  // var cholesterol;
+  var hdlc;
+  if (pt.hdl != 'undefined'){
+    pt.hdl.match(/\d+[\W]\d*/g);
+  } else undefined;
+
+  console.log("hdlc" + hdlc);
+
+
+  // var ldl;
+  var sys = systolicbp.match(/\d+[\W]\d*/g);
+  var dia = diastolicbp.match(/\d+[\W]\d*/g);
+
+  if (gender == "female"){
+    gChol =  9.92545;
+  } else {
+    gChol = 3.0975;
   }
-
-  // function riskCalc(pt){
-  //   var gChol;
-  //   var cholesterol;
-  //   var hdlc = Number(parseFloat(hdl).toFixed(2));
-  //   var sys = systolicbp.match(/\d+[\W]\d*/g);
-  //   var dia = diastolicbp.match(/\d+[\W]\d*/g);
-
-  //   if (pt.gender == "female"){
-  //     gChol =  9.92545;
-  //   } else {
-  //     gChol = 3.0975;
-  //   }
-
-  //   const dob = new Date(pt.birthDate);
-  //   var now = new Date();
-  //   var age = (now - dob) / 31556952000;
-
-  //   if (hdlc < 35){
-  //     hdlc = 0.49744
-  //   } else if (hdlc <= 44){
-  //     hdlc = 0.24310;
-  //   } else if (hdlc <=  49){
-  //     hdlc = 0.0;
-  //   } else if (hdlc <= 59) {
-  //     hdlc = −0.05107;
-  //   }  else if (hdlc > 59) {
-  //     hdlc = −0.48660;
-  //   } else { hdlc = 0.0}
+  console.log(gChol);
 
 
+  const dob = new Date(birthDate);
+  var now = new Date();
+  var age = (now - dob) / 31556952000;
 
-  // }
+  console.log(age);
+
+  if (hdlc < 35){
+    hdlc = 0.49744
+  } else if (hdlc <= 44){
+    hdlc = 0.24310;
+  } else if (hdlc <=  49){
+    hdlc = 0.0;
+  } else if (hdlc <= 59) {
+    hdlc = −0.05107;
+  }  else if (hdlc > 59) {
+    hdlc = −0.48660;
+  } else { hdlc = 0.0}
+
+  console.log("hdlc" + hdlc)
+
+}
   
 // helper function to process fhir resource to get the patient name.
 function getPatientName(pt) {
@@ -70,11 +85,14 @@ function getPatientName(pt) {
   }
 }
 
+
 // display the patient name gender and dob in the index page
 function displayPatient(pt) {
   document.getElementById('patient_name').innerHTML = getPatientName(pt);
   document.getElementById('gender').innerHTML = pt.gender;
   document.getElementById('dob').innerHTML = pt.birthDate;
+  birthDate = pt.birthDate;
+  gender = pt.gender;
 }
 
 //function to display list of medications
@@ -152,6 +170,8 @@ function displayObservation(obs) {
   height.innerHTML = obs.height;
 }
 
+
+
 //once fhir client is authorized then the following functions can be executed
 FHIR.oauth2.ready().then(function(client) {
 
@@ -226,11 +246,11 @@ FHIR.oauth2.ready().then(function(client) {
       p.hdl = getQuantityValueAndUnit(hdl[0]);
       p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-      console.log(p.sys + " / " + p.dia);
+      console.log(p.sys.match(/\d+[\W]\d*/g) +  p.dia.match(/\d+[\W]\d*/g));
 
       weightChart(weight)
       displayObservation(p)
-      // riskCalc(weight, hdl, ldl,)
+      riskCalc(p)
     });
 
 
