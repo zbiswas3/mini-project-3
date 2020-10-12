@@ -85,15 +85,15 @@ function riskCalc(pt){
 
   console.log("hdlc " + hdlc)
 
-  if (ldlc < 70){
+  if (ldlc < 100){
     cholesterol = 0.0 - 0.6945
-  } else if (ldlc <= 100){
-    cholesterol = 0.0;
   } else if (ldlc <= 130){
-    cholesterol = 0.17692;
+    cholesterol = 0.0;
   } else if (ldlc <= 160){
+    cholesterol = 0.17692;
+  } else if (ldlc <= 190){
     cholesterol = 0.50539;
-  }  else if (ldlc > 160) {
+  }  else if (ldlc > 190) {
     cholesterol =  0.65713;
   } else { cholesterol = 0.0;}
 
@@ -198,6 +198,7 @@ function defaultPatient() {
       value: ''
     },
     note: 'No Annotation',
+    smoke : 'Never smoker',
   };
 }
 
@@ -244,7 +245,7 @@ FHIR.oauth2.ready().then(function(client) {
     'http://loinc.org|2085-9',
     'http://loinc.org|2089-1',
     'http://loinc.org|55284-4',
-    'http://loinc.org|3141-9',
+    'http://loinc.org|72166-2',
     'http://loinc.org|29463-7',
     'http://loinc.org|2339-0',
     'http://loinc.org|18262-6',
@@ -257,6 +258,7 @@ FHIR.oauth2.ready().then(function(client) {
   var ldl;
   var height;
   var weight;
+  var smoking;
 
   client.request("Observation?" + query, {
     pageLimit: 0,
@@ -273,6 +275,10 @@ FHIR.oauth2.ready().then(function(client) {
       ldl = byCodes('18262-6');
       height = byCodes('2339-0');
       weight = byCodes('29463-7');
+      smoking = byCodes('72166-2');
+
+      console.log(String(smoking[0].valueCodeableConcept.coding));
+
       weightObservation = weight[0]
 
       // create patient object
