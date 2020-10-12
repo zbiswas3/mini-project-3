@@ -57,7 +57,7 @@ function riskCalc(pt){
   } else {
     gChol = 3.0975;
   }
-  console.log(gChol);
+  console.log("gChol " + gChol);
 
 
   const dob = new Date(birthDate);
