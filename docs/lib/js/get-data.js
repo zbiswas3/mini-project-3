@@ -12,9 +12,6 @@
     var chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       theme: "dark1",
-      lineColor: 'white',
-      markerColor: 'green',
-      markerType : 'square',
       title:{
         text: "Weight Over Time"
       },
@@ -26,6 +23,11 @@
     }); 
 
     chart.render();  
+  }
+
+  function riskCalc(pt){
+    if (pt.gender)
+
   }
   
 // helper function to process fhir resource to get the patient name.
