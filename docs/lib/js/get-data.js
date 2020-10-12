@@ -1,7 +1,5 @@
 //adapted from the cerner smart on fhir guide. updated to utalize client.js v2 library and FHIR R4
 
-const birthDate;
-const gender;
 //update function to take in text input from the app and add the note for the latest weight observation annotation
 //you should include text and the author can be set to anything of your choice. keep in mind that this data will
 // be posted to a public sandbox
@@ -47,7 +45,7 @@ function riskCalc(pt){
   } else ldlc = 'undefined';
   console.log("ldlc" + ldlc);
 
-  
+
 
   var sys = systolicbp.match(/\d+[\W]\d*/g);
   var dia = diastolicbp.match(/\d+[\W]\d*/g);
@@ -102,14 +100,9 @@ function displayPatient(pt) {
   document.getElementById('patient_name').innerHTML = getPatientName(pt);
   document.getElementById('gender').innerHTML = pt.gender;
   document.getElementById('dob').innerHTML = pt.birthDate;
-  birthDate = pt.birthDate;
-  gender = pt.gender;
+
 }
 
-//function to display list of medications
-// function displayMedication(meds) {
-//   med_list.innerHTML += "<li> " + meds + "</li>";
-// }
 
 //helper function to get quanity and unit from an observation resoruce.
 function getQuantityValueAndUnit(ob) {
@@ -181,8 +174,8 @@ function displayObservation(obs) {
   height.innerHTML = obs.height;
 }
 
-
-
+var birthDate;
+var gender;
 //once fhir client is authorized then the following functions can be executed
 FHIR.oauth2.ready().then(function(client) {
 
@@ -191,6 +184,8 @@ FHIR.oauth2.ready().then(function(client) {
     function(patient) {
       displayPatient(patient);
       console.log(patient);
+      birthDate = patient.birthDate;
+      gender = patient.gender;
     }
   );
 
