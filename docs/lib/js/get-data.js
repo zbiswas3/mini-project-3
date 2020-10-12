@@ -32,7 +32,7 @@ function riskCalc(pt){
   var gChol;
   var cholesterol;
   var hdlc;
-  if (pt.hdl != 'undefined'){
+  if (typeof pt.hdl != 'undefined'){
     console.log(typeof pt.hdl + "  //  "+ pt.hdl)
     hdlc = String(pt.hdl).match(/\d+[\W]\d*/g)[0];
   } else hdlc = 'undefined';
@@ -41,15 +41,16 @@ function riskCalc(pt){
 
 
   var ldlc;
-  if (pt.ldl != 'undefined'){
+  console.log(String(pt.ldl))
+  if (typeof pt.ldl != 'undefined'){
     ldlc = String(pt.ldl).match(/\d+[\W]\d*/g)[0];
   } else ldlc = 'undefined';
   console.log("ldlc" + ldlc);
 
 
 
-  var sys = systolicbp.match(/\d+[\W]\d*/g)[0];
-  var dia = diastolicbp.match(/\d+[\W]\d*/g)[0];
+  var sys = pt.sys.match(/\d+[\W]\d*/g)[0];
+  var dia = pt.dia.match(/\d+[\W]\d*/g)[0];
 
   if (gender == "female"){
     gChol =  9.92545;
