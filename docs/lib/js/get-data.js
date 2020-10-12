@@ -71,9 +71,9 @@ function riskCalc(pt){
   } else if (hdlc <=  49){
     hdlc = 0.0;
   } else if (hdlc <= 59) {
-    hdlc = −0.05107;
+    hdlc =  0.0-0.05107;
   }  else if (hdlc > 59) {
-    hdlc = −0.48660;
+    hdlc =  0.0-0.48660;
   } else { hdlc = 0.0;}
 
   console.log("hdlc" + hdlc)
