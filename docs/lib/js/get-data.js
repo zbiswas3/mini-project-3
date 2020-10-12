@@ -25,10 +25,38 @@
     chart.render();  
   }
 
-  function riskCalc(pt){
-    if (pt.gender)
+  // function riskCalc(pt){
+  //   var gChol;
+  //   var cholesterol;
+  //   var hdlc = Number(parseFloat(hdl).toFixed(2));
+  //   var sys = systolicbp.match(/\d+[\W]\d*/g);
+  //   var dia = diastolicbp.match(/\d+[\W]\d*/g);
 
-  }
+  //   if (pt.gender == "female"){
+  //     gChol =  9.92545;
+  //   } else {
+  //     gChol = 3.0975;
+  //   }
+
+  //   const dob = new Date(pt.birthDate);
+  //   var now = new Date();
+  //   var age = (now - dob) / 31556952000;
+
+  //   if (hdlc < 35){
+  //     hdlc = 0.49744
+  //   } else if (hdlc <= 44){
+  //     hdlc = 0.24310;
+  //   } else if (hdlc <=  49){
+  //     hdlc = 0.0;
+  //   } else if (hdlc <= 59) {
+  //     hdlc = −0.05107;
+  //   }  else if (hdlc > 59) {
+  //     hdlc = −0.48660;
+  //   } else { hdlc = 0.0}
+
+
+
+  // }
   
 // helper function to process fhir resource to get the patient name.
 function getPatientName(pt) {
@@ -198,8 +226,11 @@ FHIR.oauth2.ready().then(function(client) {
       p.hdl = getQuantityValueAndUnit(hdl[0]);
       p.ldl = getQuantityValueAndUnit(ldl[0]);
 
+      console.log(p.sys + " / " + p.dia);
+
       weightChart(weight)
       displayObservation(p)
+      // riskCalc(weight, hdl, ldl,)
     });
 
 
