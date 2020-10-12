@@ -222,7 +222,7 @@ FHIR.oauth2.ready().then(function(client) {
   var diastolicbp;
   var hdl;
   var ldl;
-  var glucose;
+  var height;
   var weight;
 
   client.request("Observation?" + query, {
@@ -237,7 +237,7 @@ FHIR.oauth2.ready().then(function(client) {
       diastolicbp = getBloodPressureValue(byCodes('55284-4'), '8462-4');
       hdl = byCodes('2085-9');
       ldl = byCodes('2089-1');
-      glucose = byCodes('2339-0');
+      height = byCodes('2339-0');
       weight = byCodes('29463-7');
       weightObservation = weight[0]
 
@@ -257,7 +257,7 @@ FHIR.oauth2.ready().then(function(client) {
         p.dia = 'undefined'
       }
       
-      p.height = getQuantityValueAndUnit(glucose[0])
+      p.height = getQuantityValueAndUnit(height[0])
       p.weight = getQuantityValueAndUnit(weight[0]) 
       p.hdl = getQuantityValueAndUnit(hdl[0]);
       p.ldl = getQuantityValueAndUnit(ldl[0]);
