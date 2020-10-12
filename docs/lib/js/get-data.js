@@ -14,8 +14,10 @@
       theme: "dark2",
       lineColor: 'cyan',
       lineDashed : 'dash',
+      markerColor: 'white',
+      markerType : 'square',
       title:{
-        text: "weight Over Time"
+        text: "Weight Over Time"
       },
       data: [{        
         type: "line",
