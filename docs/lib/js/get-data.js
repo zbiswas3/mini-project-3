@@ -130,7 +130,7 @@ function riskCalc(pt){
     smoker = 0.0;
   }
 
-  var risk = 50%
+  var risk = "50%";
 
   riskscore.innerHTML = String(risk);
 
