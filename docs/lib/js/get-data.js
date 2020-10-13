@@ -309,8 +309,10 @@ FHIR.oauth2.ready().then(function(client) {
       } else {
         p.dia = 'undefined'
       }
+      console.log(typeof smoking + " type of smoking")
       if (typeof smoking != undefined){
-        p.smoke = smoking[0].valueCodeableConcept.text;
+        console.log(smoking[0].valueCodeableConcept.text)
+        p.smoke = String(smoking[0].valueCodeableConcept.text);
       } else {
         p.smoke = 'undefined'
       }
