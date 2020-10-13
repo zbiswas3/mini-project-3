@@ -128,11 +128,12 @@ function riskCalc(pt){
     smoker = 0.52337;
   } else {
     smoker = 0.0;
+    console.log(smoker);
   }
 
   var risk = "50%";
 
-  riskscore.innerHTML = String(risk);
+  document.getElementById('riskscore').innerHTML = String(risk);
 
 
 }
@@ -211,7 +212,9 @@ function defaultPatient() {
       value: ''
     },
     note: 'No Annotation',
-    smoke : 'Never smoker',
+    smoke : {
+      value: ''
+    },
   };
 }
 
@@ -312,7 +315,7 @@ FHIR.oauth2.ready().then(function(client) {
       console.log(typeof smoking + " type of smoking")
       if (typeof smoking != undefined){
         console.log(smoking[0].valueCodeableConcept.text)
-        p.smoke = String(smoking[0].valueCodeableConcept.text);
+        p.smoke = smoking[0].valueCodeableConcept.text;
       } else {
         p.smoke = 'undefined'
       }
