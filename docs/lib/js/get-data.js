@@ -34,11 +34,11 @@ function riskCalc(pt){
   var hdlc;
   var st;
   if (typeof pt.hdl != 'undefined'){
-    console.log(typeof pt.hdl + "  //  "+ pt.hdl)
+    // console.log(typeof pt.hdl + "  //  "+ pt.hdl)
     hdlc = String(pt.hdl).match(/\d+[\W]\d*/g)[0];
   } else hdlc = 'undefined';
 
-  console.log("hdlc" + hdlc);
+  console.log("hdlc" + typeof hdlc + hdlc);
 
 
   var ldlc;
@@ -46,14 +46,14 @@ function riskCalc(pt){
   if (typeof pt.ldl != 'undefined'){
     ldlc = String(pt.ldl).match(/\d+[\W]\d*/g)[0];
   } else ldlc = 'undefined';
-  console.log("ldlc" + ldlc);
+  console.log("ldlc" + typeof ldlc + ldlc);
 
   var glucose;
   console.log(String(pt.height))
   if (typeof pt.height != 'undefined'){
     glucose = String(pt.height).match(/\d+[\W]\d*/g)[0];
   } else glucose = 'undefined';
-  console.log("glucose" + glucose);
+  console.log("glucose" + typeof glucose + glucose);
 
   var sys = pt.sys.match(/\d+[\W]\d*/g)[0];
   var dia = pt.dia.match(/\d+[\W]\d*/g)[0];
@@ -73,7 +73,7 @@ function riskCalc(pt){
   var now = new Date();
   var age = (now - dob) / 31556952000;
 
-  console.log("age  "+ age);
+  console.log("age  "+ typeof age + age);
 
   if (hdlc < 35){
     hdlc = 0.49744
@@ -87,7 +87,7 @@ function riskCalc(pt){
     hdlc =  0.0-0.48660;
   } else { hdlc = 0.0;}
 
-  console.log("hdlc " + hdlc)
+  console.log("hdlc " + typeof hdlc + hdlc)
 
   if (ldlc < 100){
     cholesterol = 0.0 - 0.6945
@@ -101,7 +101,7 @@ function riskCalc(pt){
     cholesterol =  0.65713;
   } else { cholesterol = 0.0;}
 
-  console.log("cholesterol " + cholesterol)
+  console.log("cholesterol " + typeof cholesterol + cholesterol)
 
   var bp;
 
@@ -117,7 +117,7 @@ function riskCalc(pt){
     bp =  0.61859;
   } else { bp = 0.0;}
 
-  console.log("BP " + bp)
+  console.log("BP " + typeof bp + bp)
 
   var diabetes; 
   if (glucose > 140){
@@ -132,11 +132,12 @@ function riskCalc(pt){
     smoker = 0.52337;
   } else {
     smoker = 0.0;
-    console.log(smoker);
+    
   }
+  console.log("smoker "+smoker);
 
   var risk;
-  var lChol = 0.04826*age+ldlc+hdlc+bp+diabetes+smoker;
+  var lChol = 0.04826*age+cholesterol+hdlc+bp+diabetes+smoker;
   var A = lChol - gChol;
   var B = Math.pow(Math.E, A)
   risk = (1 - Math.pow(st, B))*100.0;
@@ -322,9 +323,9 @@ FHIR.oauth2.ready().then(function(client) {
       } else {
         p.dia = 'undefined'
       }
-      console.log(typeof smoking + " type of smoking")
+      // console.log(typeof smoking + " type of smoking")
       if (typeof smoking != undefined){
-        console.log(smoking[0].valueCodeableConcept.text)
+        // console.log(smoking[0].valueCodeableConcept.text)
         p.smoke = smoking[0].valueCodeableConcept.text;
       } else {
         p.smoke = 'undefined'
@@ -335,7 +336,7 @@ FHIR.oauth2.ready().then(function(client) {
       p.hdl = getQuantityValueAndUnit(hdl[0]);
       p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-      console.log(p.sys.match(/\d+[\W]\d*/g) +  p.dia.match(/\d+[\W]\d*/g));
+      // console.log(p.sys.match(/\d+[\W]\d*/g) +  p.dia.match(/\d+[\W]\d*/g));
 
       weightChart(weight)
       displayObservation(p)
