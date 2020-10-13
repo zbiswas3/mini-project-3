@@ -277,7 +277,7 @@ FHIR.oauth2.ready().then(function(client) {
       weight = byCodes('29463-7');
       smoking = byCodes('72166-2');
 
-      console.log(JSON.stringify(smoking[0].valueCodeableConcept.coding.display));
+      console.log(JSON.stringify(smoking[0].valueCodeableConcept.coding[0].display));
 
       weightObservation = weight[0]
 
