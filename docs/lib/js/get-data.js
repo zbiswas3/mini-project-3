@@ -140,6 +140,7 @@ function riskCalc(pt){
   var A = lChol - gChol;
   var B = Math.pow(Math.E, A)
   risk = (1 - Math.pow(st, B))*100.0;
+  console.log(risk);
 
   document.getElementById('riskscore').innerHTML = risk + "%";
 
