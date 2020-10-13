@@ -142,6 +142,8 @@ function riskCalc(pt){
   risk = (1 - Math.pow(st, B))*100.0;
   console.log(risk);
 
+  displayAnnotation(risk + "%");
+
   document.getElementById('riskscore').innerHTML = risk + "%";
 
 }
