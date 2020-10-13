@@ -123,7 +123,7 @@ function riskCalc(pt){
   console.log("diabetes " + diabetes)
 
   var smoker;
-  console.log("smoker ", pt.smoker)
+  console.log("smoker ", pt.smoke)
   if (pt.smoke != "Never smoker" || pt.smoke != 'undefined'){
     smoker = 0.52337;
   } else {
