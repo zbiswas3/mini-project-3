@@ -32,6 +32,7 @@ function riskCalc(pt){
   var gChol;
   var cholesterol;
   var hdlc;
+  var st;
   if (typeof pt.hdl != 'undefined'){
     console.log(typeof pt.hdl + "  //  "+ pt.hdl)
     hdlc = String(pt.hdl).match(/\d+[\W]\d*/g)[0];
@@ -59,8 +60,11 @@ function riskCalc(pt){
 
   if (gender == "female"){
     gChol =  9.92545;
+    st = 0.9628;
+
   } else {
     gChol = 3.0975;
+    st = 0.90017;
   }
   console.log("gChol " + gChol);
 
@@ -131,10 +135,13 @@ function riskCalc(pt){
     console.log(smoker);
   }
 
-  var risk = "50%";
+  var risk;
+  var lChol = 0.04826*age+ldlc+hdlc+bp+diabetes+smoker;
+  var A = lChol - gChol;
+  var B = Math.pow(Math.E, A)
+  risk = (1 - Math.pow(st, B))*100.0;
 
-  document.getElementById('riskscore').innerHTML = String(risk);
-
+  document.getElementById('riskscore').innerHTML = risk + "%";
 
 }
   
