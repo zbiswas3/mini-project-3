@@ -143,7 +143,7 @@ function riskCalc(pt){
   console.log('var a ' + A)
   var B = Math.pow(Math.E, A)
   console.log('var B ' + B)
-  risk = (1 - Math.pow(st, B))*1000.0;
+  risk = (1 - Math.pow(st, B))*100.0;
   console.log(risk);
 
   document.getElementById('riskscore').innerHTML = risk.toFixed(2) + "%";
