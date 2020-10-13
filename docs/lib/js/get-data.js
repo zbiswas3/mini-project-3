@@ -122,6 +122,15 @@ function riskCalc(pt){
 
   console.log("diabetes " + diabetes)
 
+  var smoker;
+  console.log("smoker ", pt.smoker)
+  if (pt.smoke != "Never smoker" || pt.smoke != 'undefined'){
+    smoker = 0.52337;
+  } else {
+    smoker = 0.0;
+  }
+
+
 }
   
 // helper function to process fhir resource to get the patient name.
@@ -277,7 +286,7 @@ FHIR.oauth2.ready().then(function(client) {
       weight = byCodes('29463-7');
       smoking = byCodes('72166-2');
 
-      console.log(JSON.stringify(smoking[0].valueCodeableConcept.coding[0].display));
+
 
       weightObservation = weight[0]
 
@@ -296,7 +305,12 @@ FHIR.oauth2.ready().then(function(client) {
       } else {
         p.dia = 'undefined'
       }
-      
+      if (typeof smoking != undefined){
+        p.smoke = smoking[0].valueCodeableConcept.text;
+      } else {
+        p.smoke = 'undefined'
+      }
+
       p.height = getQuantityValueAndUnit(height[0])
       p.weight = getQuantityValueAndUnit(weight[0]) 
       p.hdl = getQuantityValueAndUnit(hdl[0]);
