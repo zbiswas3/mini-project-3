@@ -138,14 +138,15 @@ function riskCalc(pt){
 
   var risk;
   var lChol = 0.04826*age+cholesterol+hdlc+bp+diabetes+smoker;
+  console.log('lchol ' + lChol)
   var A = lChol - gChol;
+  console.log('var a ' + A)
   var B = Math.pow(Math.E, A)
-  risk = (1 - Math.pow(st, B))*100.0;
+  console.log('var B ' + B)
+  risk = (1 - Math.pow(st, B))*1000.0;
   console.log(risk);
 
-  displayAnnotation(risk + "%");
-
-  document.getElementById('riskscore').innerHTML = risk + "%";
+  document.getElementById('riskscore').innerHTML = risk.toFixed(2) + "%";
 
 }
   
@@ -222,17 +223,12 @@ function defaultPatient() {
     hdl: {
       value: ''
     },
-    note: 'No Annotation',
     smoke : {
       value: ''
     },
   };
 }
 
-//helper function to display the annotation on the index page
-function displayAnnotation(annotation) {
-  note.innerHTML = annotation;
-}
 
 //function to display the observation values you will need to update this
 function displayObservation(obs) {
@@ -367,23 +363,23 @@ FHIR.oauth2.ready().then(function(client) {
   //update function to take in text input from the app and add the note for the latest weight observation annotation
   //you should include text and the author can be set to anything of your choice. keep in mind that this data will
   // be posted to a public sandbox
-  function addWeightAnnotation() {
-    var annotation = document.getElementById("annotation").value;
-    console.log(String(weightObservation.id))
-    displayAnnotation(annotation);
-    var event = new Date();
-    var dateString = event.toISOString().slice(0,19) + event.toString().slice(28,31)+":"+ event.toString().slice(31,33);
-    var authorString = "zbiswas3";
+  // function addWeightAnnotation() {
+  //   var annotation = document.getElementById("annotation").value;
+  //   console.log(String(weightObservation.id))
+  //   displayAnnotation(annotation);
+  //   var event = new Date();
+  //   var dateString = event.toISOString().slice(0,19) + event.toString().slice(28,31)+":"+ event.toString().slice(31,33);
+  //   var authorString = "zbiswas3";
 
-    weightObservation.note = {'authorString': authorString,
-                              'text' : annotation,
-                              'time' : dateString};
+  //   weightObservation.note = {'authorString': authorString,
+  //                             'text' : annotation,
+  //                             'time' : dateString};
 
-    client.update(weightObservation)    
-  }
+  //   client.update(weightObservation)    
+  // }
 
   //event listner when the add button is clicked to call the function that will add the note to the weight observation
-  document.getElementById('add').addEventListener('click', addWeightAnnotation);
+  // document.getElementById('add').addEventListener('click', addWeightAnnotation);
 
 
 }).catch(console.error);
